@@ -1,4 +1,5 @@
 *.wal
+duckdb
 resources/data/source/clusters/*.tsv
 resources/data/source/cells
 resources/data/source/genes
