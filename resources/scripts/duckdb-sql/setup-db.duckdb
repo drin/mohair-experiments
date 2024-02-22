@@ -1,0 +1,6 @@
+.read resources/scripts/duckdb-sql/create-schema.sql
+.read resources/scripts/duckdb-sql/load-cells-genes.sql
+.read resources/scripts/duckdb-sql/load-clusters.sql
+.read resources/scripts/duckdb-sql/load-metaclusters.sql
+-- .read resources/scripts/duckdb-sql/load-test.sql
+.read resources/scripts/duckdb-sql/load-clustermembers.sql
