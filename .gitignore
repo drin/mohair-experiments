@@ -1,0 +1,5 @@
+*.wal
+resources/data/source/clusters/*.tsv
+resources/data/source/cells
+resources/data/source/genes
+!resources/data/source/clusters/*cells.tsv
