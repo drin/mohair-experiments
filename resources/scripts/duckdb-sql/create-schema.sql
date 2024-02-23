@@ -125,6 +125,7 @@
 -- Auxiliary structures
 
     CREATE UNIQUE INDEX IF NOT EXISTS idx_gname       ON genes(gene_name);
+    CREATE UNIQUE INDEX IF NOT EXISTS idx_cname       ON cells(cell_name);
     CREATE INDEX        IF NOT EXISTS idx_expr        ON expression(expr);
     CREATE INDEX        IF NOT EXISTS idx_annotations ON cluster_annotations(cluster_id, annotation_val);
 
