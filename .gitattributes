@@ -26,4 +26,3 @@ resources/data/source/clusters/E-GEOD-100618_2_84.cells.tsv filter=lfs diff=lfs 
 resources/data/testdb filter=lfs diff=lfs merge=lfs -text
 resources/examples/test-query.substrait filter=lfs diff=lfs merge=lfs -text
 resources/examples/test-query.txt filter=lfs diff=lfs merge=lfs -text
-resources/scripts/duckdb-sql/test-query.sql filter=lfs diff=lfs merge=lfs -text
