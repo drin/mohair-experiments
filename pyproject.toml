@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "mohair-experiments"
+version = "0.1.0"
+description = "Experiments for cooperative query decomposition"
+authors = ["Aldrin Montana <octalene.dev@pm.me>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+duckdb = "^0.10.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
