@@ -1,0 +1,38 @@
+#!/usr/bin/env python
+
+# ------------------------------
+# Dependencies
+
+# >> Standard modules
+import sys
+
+from pathlib import Path
+
+# >> Third-party
+from mohair.substrait.plan_pb2 import Plan
+from mohair.substrait.algebra_pb2 import Rel
+
+
+# ------------------------------
+# Module variables
+
+example_fpath = Path('resources') / 'examples' / 'average-expression.substrait'
+
+
+if __name__ == '__main__':
+    # Take a file path to the substrait plan as an optional input
+    input_fpath = None
+    if len(sys.argv) == 2:
+        input_fpath = Path(sys.argv[1])
+
+    plan_fpath = input_fpath or example_fpath
+
+    # initialize a protobuf structure
+    substrait_plan = Plan()
+
+    # populate the protobuf structure from binary
+    with open(plan_fpath, 'rb') as file_handle:
+        substrait_plan.ParseFromString(file_handle.read())
+
+    # print the structure
+    print(substrait_plan)
