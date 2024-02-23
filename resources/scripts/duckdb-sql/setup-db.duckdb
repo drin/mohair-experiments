@@ -1,6 +1,11 @@
-.read resources/scripts/duckdb-sql/create-schema.sql
+-- don't want to accidentally drop data anymore
+-- .read resources/scripts/duckdb-sql/create-schema.sql
 .read resources/scripts/duckdb-sql/load-cells-genes.sql
 .read resources/scripts/duckdb-sql/load-clusters.sql
 .read resources/scripts/duckdb-sql/load-metaclusters.sql
--- .read resources/scripts/duckdb-sql/load-test.sql
 .read resources/scripts/duckdb-sql/load-clustermembers.sql
+
+-- this takes a long time. if it can be made faster,
+-- we can rerun these scripts more often
+-- .read resources/scripts/duckdb-sql/load-expression.sql
+
