@@ -1,0 +1,637 @@
+version {
+  minor_number: 39
+  producer: "DuckDB"
+}
+extensions {
+  extension_function {
+    function_anchor: 1
+    name: "equal"
+  }
+}
+extensions {
+  extension_function {
+    function_anchor: 2
+    name: "is_not_null"
+  }
+}
+extensions {
+  extension_function {
+    function_anchor: 3
+    name: "and"
+  }
+}
+extensions {
+  extension_function {
+    function_anchor: 4
+    name: "count"
+  }
+}
+extensions {
+  extension_function {
+    function_anchor: 5
+    name: "avg"
+  }
+}
+extensions {
+  extension_function {
+    function_anchor: 6
+    name: "var_pop"
+  }
+}
+relations {
+  root {
+    input {
+      project {
+        input {
+          aggregate {
+            input {
+              project {
+                input {
+                  project {
+                    input {
+                      join {
+                        left {
+                          read {
+                            base_schema {
+                              names: "gene_id"
+                              names: "cell_id"
+                              names: "expr"
+                              struct {
+                                types {
+                                  i64 {
+                                    nullability: NULLABILITY_REQUIRED
+                                  }
+                                }
+                                types {
+                                  i64 {
+                                    nullability: NULLABILITY_REQUIRED
+                                  }
+                                }
+                                types {
+                                  fp32 {
+                                    nullability: NULLABILITY_NULLABLE
+                                  }
+                                }
+                                nullability: NULLABILITY_REQUIRED
+                              }
+                            }
+                            projection {
+                              select {
+                                struct_items {
+                                  field: 1
+                                }
+                                struct_items {
+                                }
+                                struct_items {
+                                  field: 2
+                                }
+                              }
+                              maintain_singular_struct: true
+                            }
+                            named_table {
+                              names: "expression"
+                            }
+                          }
+                        }
+                        right {
+                          project {
+                            input {
+                              join {
+                                left {
+                                  read {
+                                    base_schema {
+                                      names: "cluster_id"
+                                      names: "cell_id"
+                                      struct {
+                                        types {
+                                          i64 {
+                                            nullability: NULLABILITY_REQUIRED
+                                          }
+                                        }
+                                        types {
+                                          i64 {
+                                            nullability: NULLABILITY_REQUIRED
+                                          }
+                                        }
+                                        nullability: NULLABILITY_REQUIRED
+                                      }
+                                    }
+                                    projection {
+                                      select {
+                                        struct_items {
+                                        }
+                                        struct_items {
+                                          field: 1
+                                        }
+                                      }
+                                      maintain_singular_struct: true
+                                    }
+                                    named_table {
+                                      names: "cluster_membership"
+                                    }
+                                  }
+                                }
+                                right {
+                                  project {
+                                    input {
+                                      join {
+                                        left {
+                                          read {
+                                            base_schema {
+                                              names: "cluster_id"
+                                              names: "cluster_name"
+                                              struct {
+                                                types {
+                                                  i64 {
+                                                    nullability: NULLABILITY_REQUIRED
+                                                  }
+                                                }
+                                                types {
+                                                  varchar {
+                                                    length: 19
+                                                    nullability: NULLABILITY_REQUIRED
+                                                  }
+                                                }
+                                                nullability: NULLABILITY_REQUIRED
+                                              }
+                                            }
+                                            projection {
+                                              select {
+                                                struct_items {
+                                                }
+                                              }
+                                              maintain_singular_struct: true
+                                            }
+                                            named_table {
+                                              names: "clusters"
+                                            }
+                                          }
+                                        }
+                                        right {
+                                          read {
+                                            base_schema {
+                                              names: "mcluster_id"
+                                              names: "cluster_id"
+                                              struct {
+                                                types {
+                                                  i64 {
+                                                    nullability: NULLABILITY_REQUIRED
+                                                  }
+                                                }
+                                                types {
+                                                  i64 {
+                                                    nullability: NULLABILITY_REQUIRED
+                                                  }
+                                                }
+                                                nullability: NULLABILITY_REQUIRED
+                                              }
+                                            }
+                                            filter {
+                                              scalar_function {
+                                                function_reference: 3
+                                                arguments {
+                                                  value {
+                                                    scalar_function {
+                                                      function_reference: 1
+                                                      arguments {
+                                                        value {
+                                                          selection {
+                                                            direct_reference {
+                                                              struct_field {
+                                                              }
+                                                            }
+                                                            root_reference {
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                      arguments {
+                                                        value {
+                                                          literal {
+                                                            i64: 12
+                                                          }
+                                                        }
+                                                      }
+                                                      output_type {
+                                                        i64 {
+                                                          nullability: NULLABILITY_NULLABLE
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                                arguments {
+                                                  value {
+                                                    scalar_function {
+                                                      function_reference: 2
+                                                      arguments {
+                                                        value {
+                                                          selection {
+                                                            direct_reference {
+                                                              struct_field {
+                                                              }
+                                                            }
+                                                            root_reference {
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                      output_type {
+                                                        i64 {
+                                                          nullability: NULLABILITY_NULLABLE
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                                output_type {
+                                                  bool {
+                                                    nullability: NULLABILITY_NULLABLE
+                                                  }
+                                                }
+                                              }
+                                            }
+                                            projection {
+                                              select {
+                                                struct_items {
+                                                  field: 1
+                                                }
+                                              }
+                                              maintain_singular_struct: true
+                                            }
+                                            named_table {
+                                              names: "metaclusters"
+                                            }
+                                          }
+                                        }
+                                        expression {
+                                          scalar_function {
+                                            function_reference: 1
+                                            arguments {
+                                              value {
+                                                selection {
+                                                  direct_reference {
+                                                    struct_field {
+                                                    }
+                                                  }
+                                                  root_reference {
+                                                  }
+                                                }
+                                              }
+                                            }
+                                            arguments {
+                                              value {
+                                                selection {
+                                                  direct_reference {
+                                                    struct_field {
+                                                      field: 1
+                                                    }
+                                                  }
+                                                  root_reference {
+                                                  }
+                                                }
+                                              }
+                                            }
+                                            output_type {
+                                              bool {
+                                                nullability: NULLABILITY_NULLABLE
+                                              }
+                                            }
+                                          }
+                                        }
+                                        type: JOIN_TYPE_INNER
+                                      }
+                                    }
+                                    expressions {
+                                      selection {
+                                        direct_reference {
+                                          struct_field {
+                                          }
+                                        }
+                                        root_reference {
+                                        }
+                                      }
+                                    }
+                                    expressions {
+                                      selection {
+                                        direct_reference {
+                                          struct_field {
+                                            field: 1
+                                          }
+                                        }
+                                        root_reference {
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                                expression {
+                                  scalar_function {
+                                    function_reference: 1
+                                    arguments {
+                                      value {
+                                        selection {
+                                          direct_reference {
+                                            struct_field {
+                                            }
+                                          }
+                                          root_reference {
+                                          }
+                                        }
+                                      }
+                                    }
+                                    arguments {
+                                      value {
+                                        selection {
+                                          direct_reference {
+                                            struct_field {
+                                              field: 2
+                                            }
+                                          }
+                                          root_reference {
+                                          }
+                                        }
+                                      }
+                                    }
+                                    output_type {
+                                      bool {
+                                        nullability: NULLABILITY_NULLABLE
+                                      }
+                                    }
+                                  }
+                                }
+                                type: JOIN_TYPE_INNER
+                              }
+                            }
+                            expressions {
+                              selection {
+                                direct_reference {
+                                  struct_field {
+                                  }
+                                }
+                                root_reference {
+                                }
+                              }
+                            }
+                            expressions {
+                              selection {
+                                direct_reference {
+                                  struct_field {
+                                    field: 1
+                                  }
+                                }
+                                root_reference {
+                                }
+                              }
+                            }
+                            expressions {
+                              selection {
+                                direct_reference {
+                                  struct_field {
+                                    field: 2
+                                  }
+                                }
+                                root_reference {
+                                }
+                              }
+                            }
+                          }
+                        }
+                        expression {
+                          scalar_function {
+                            function_reference: 1
+                            arguments {
+                              value {
+                                selection {
+                                  direct_reference {
+                                    struct_field {
+                                    }
+                                  }
+                                  root_reference {
+                                  }
+                                }
+                              }
+                            }
+                            arguments {
+                              value {
+                                selection {
+                                  direct_reference {
+                                    struct_field {
+                                      field: 4
+                                    }
+                                  }
+                                  root_reference {
+                                  }
+                                }
+                              }
+                            }
+                            output_type {
+                              bool {
+                                nullability: NULLABILITY_NULLABLE
+                              }
+                            }
+                          }
+                        }
+                        type: JOIN_TYPE_INNER
+                      }
+                    }
+                    expressions {
+                      selection {
+                        direct_reference {
+                          struct_field {
+                          }
+                        }
+                        root_reference {
+                        }
+                      }
+                    }
+                    expressions {
+                      selection {
+                        direct_reference {
+                          struct_field {
+                            field: 1
+                          }
+                        }
+                        root_reference {
+                        }
+                      }
+                    }
+                    expressions {
+                      selection {
+                        direct_reference {
+                          struct_field {
+                            field: 2
+                          }
+                        }
+                        root_reference {
+                        }
+                      }
+                    }
+                    expressions {
+                      selection {
+                        direct_reference {
+                          struct_field {
+                            field: 4
+                          }
+                        }
+                        root_reference {
+                        }
+                      }
+                    }
+                  }
+                }
+                expressions {
+                  selection {
+                    direct_reference {
+                      struct_field {
+                        field: 1
+                      }
+                    }
+                    root_reference {
+                    }
+                  }
+                }
+                expressions {
+                  cast {
+                    type {
+                      fp64 {
+                        nullability: NULLABILITY_NULLABLE
+                      }
+                    }
+                    input {
+                      selection {
+                        direct_reference {
+                          struct_field {
+                            field: 2
+                          }
+                        }
+                        root_reference {
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            groupings {
+              grouping_expressions {
+                selection {
+                  direct_reference {
+                    struct_field {
+                    }
+                  }
+                  root_reference {
+                  }
+                }
+              }
+            }
+            measures {
+              measure {
+                function_reference: 4
+                output_type {
+                  i64 {
+                    nullability: NULLABILITY_NULLABLE
+                  }
+                }
+              }
+            }
+            measures {
+              measure {
+                function_reference: 5
+                arguments {
+                  value {
+                    selection {
+                      direct_reference {
+                        struct_field {
+                          field: 1
+                        }
+                      }
+                      root_reference {
+                      }
+                    }
+                  }
+                }
+                output_type {
+                  fp64 {
+                    nullability: NULLABILITY_NULLABLE
+                  }
+                }
+              }
+            }
+            measures {
+              measure {
+                function_reference: 6
+                arguments {
+                  value {
+                    selection {
+                      direct_reference {
+                        struct_field {
+                          field: 1
+                        }
+                      }
+                      root_reference {
+                      }
+                    }
+                  }
+                }
+                output_type {
+                  fp64 {
+                    nullability: NULLABILITY_NULLABLE
+                  }
+                }
+              }
+            }
+          }
+        }
+        expressions {
+          selection {
+            direct_reference {
+              struct_field {
+              }
+            }
+            root_reference {
+            }
+          }
+        }
+        expressions {
+          selection {
+            direct_reference {
+              struct_field {
+                field: 1
+              }
+            }
+            root_reference {
+            }
+          }
+        }
+        expressions {
+          selection {
+            direct_reference {
+              struct_field {
+                field: 2
+              }
+            }
+            root_reference {
+            }
+          }
+        }
+        expressions {
+          selection {
+            direct_reference {
+              struct_field {
+                field: 3
+              }
+            }
+            root_reference {
+            }
+          }
+        }
+      }
+    }
+    names: "gene_id"
+    names: "cell_count"
+    names: "expr_avg"
+    names: "expr_var"
+  }
+}
+
